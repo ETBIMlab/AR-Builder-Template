@@ -1,0 +1,2 @@
+AudioPluginMicrosoftSpatializer.dll
+AudioPluginMsHRTF.dll
