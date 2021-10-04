@@ -206,3 +206,16 @@ Total Fun = 3
 Average Sustainability = 1
 ---------------------------------------
 
+---------------------------------------
+User ordered Bar Assembly One
+Item cost 45 $
+The time required is 10 minutes 
+The Item has a sustainability rank of 5
+And a fun rank  of 0
+This was ordered at 10/4/2021 4:24:19 PM
+Total Cost = 45 $
+Total Time = 10 Minutes
+Total Fun = 0
+Average Sustainability = 5
+---------------------------------------
+
