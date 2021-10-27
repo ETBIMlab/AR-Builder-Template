@@ -5,22 +5,19 @@ using System.Linq;
 using UnityEngine.Windows.Speech;
 
 //by Albert De La Cruz
-public class AudioRoot : MonoBehaviour
+public class EnvironmentSetterAudio : MonoBehaviour
 {
 
-    Root root;
-
-    private AudioSource theAudio1;
-    public AudioClip changeSpace;
-    public AudioClip changeLevel;
-    public AudioClip changeSize;
+    private AudioSource envSource;
+    public AudioClip changeSpaceAudio;
+    public AudioClip changeLevelAudio;
+    public AudioClip changeSizeAudio;
     public float volume = 1F;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        theAudio1 = GetComponent<AudioSource>();
+        envSource = GameObject.Find("EnvironmentSetter").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,17 +28,17 @@ public class AudioRoot : MonoBehaviour
 
     public void setSpace()
     {
-        theAudio1.PlayOneShot(changeSpace, volume);
+        envSource.PlayOneShot(changeSpaceAudio, volume);
     }
 
     public void shiftLevel()
     {
-        theAudio1.PlayOneShot(changeLevel, volume);
+        envSource.PlayOneShot(changeLevelAudio, volume);
     }
 
     public void changeView()
     {
-        theAudio1.PlayOneShot(changeSize, volume);
+        envSource.PlayOneShot(changeSizeAudio, volume);
     }
 
 
