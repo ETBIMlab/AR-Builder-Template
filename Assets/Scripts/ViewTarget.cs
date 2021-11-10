@@ -5,7 +5,7 @@ using UnityEngine;
 public class ViewTarget : MonoBehaviour
 {
 
-    public Vector3 offset;
+    public Vector3 viewOffset;
 
     // Start is called before the first frame update
     void Start()

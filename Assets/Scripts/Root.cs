@@ -255,7 +255,7 @@ public class Root : MonoBehaviour
         Vector3 playerPosition = player.transform.position;
         float currentScalar = scaleLevels[currentScale].shift;
         float newScalar = scaleLevels[scalar].shift;
-        Vector3 viewOffset = currentViewTarget.GetComponent<ViewTarget>().offset;
+        Vector3 viewOffset = currentViewTarget.GetComponent<ViewTarget>().viewOffset;
 
         if (currentScalar == newScalar)
             return;
@@ -316,7 +316,7 @@ public class Root : MonoBehaviour
         }
 
         Vector3 targetPosition = targetObject.transform.position;
-        Vector3 targetOffset = targetObject.GetComponent<ViewTarget>().offset;
+        Vector3 targetOffset = targetObject.GetComponent<ViewTarget>().viewOffset;
 
         newPosition.x += playerPosition.x - targetPosition.x - targetOffset.x * scaleLevels[currentScale].shift;
         newPosition.y += playerPosition.y - targetPosition.y - targetOffset.y * scaleLevels[currentScale].shift;

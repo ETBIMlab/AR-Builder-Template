@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 17474100}
   - component: {fileID: 17474099}
   - component: {fileID: 17474098}
+  - component: {fileID: 17474103}
   - component: {fileID: 17474102}
   m_Layer: 0
   m_Name: Trench
@@ -227,7 +228,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 3, z: 0}
+--- !u!114 &17474103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17474097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &169808660
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &169808663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -347,6 +385,7 @@ GameObject:
   - component: {fileID: 263010636}
   - component: {fileID: 263010635}
   - component: {fileID: 263010634}
+  - component: {fileID: 263010639}
   - component: {fileID: 263010638}
   m_Layer: 0
   m_Name: Crane
@@ -442,7 +481,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 3, z: 0}
+--- !u!114 &263010639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263010633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &534286785
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +531,7 @@ GameObject:
   - component: {fileID: 534286790}
   - component: {fileID: 534286789}
   - component: {fileID: 534286788}
+  - component: {fileID: 534286791}
   - component: {fileID: 534286787}
   m_Layer: 0
   m_Name: Entrance
@@ -489,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 3, z: 0}
 --- !u!65 &534286788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -550,6 +627,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534286785}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &534286791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534286785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &569724183
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +676,7 @@ GameObject:
   - component: {fileID: 569724187}
   - component: {fileID: 569724186}
   - component: {fileID: 569724185}
+  - component: {fileID: 569724189}
   - component: {fileID: 569724184}
   m_Layer: 0
   m_Name: Sewer
@@ -579,10 +694,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 569724183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 0
+  viewOffset: {x: 0, y: 0, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!65 &569724185
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -657,6 +796,43 @@ Transform:
   m_Father: {fileID: 1495529727}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &569724189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569724183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &735919579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1197,7 @@ GameObject:
   - component: {fileID: 1205728155}
   - component: {fileID: 1205728154}
   - component: {fileID: 1205728153}
+  - component: {fileID: 1205728158}
   - component: {fileID: 1205728156}
   - component: {fileID: 1205728157}
   m_Layer: 0
@@ -1113,10 +1290,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1205728151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
+  m_Script: {fileID: 11500000, guid: 178b9aeba8f04c94f940a17dc894c37b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 4.5, z: 0}
 --- !u!114 &1205728157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,9 +1302,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 1205728151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 178b9aeba8f04c94f940a17dc894c37b, type: 3}
+  m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewOffset: {x: 0, y: 5, z: 0}
+--- !u!114 &1205728158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205728151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 5, z: 0}
+  taggable: 0
+  canToggleVisibility: 1
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &1425361654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1536,7 @@ GameObject:
   - component: {fileID: 1538305068}
   - component: {fileID: 1538305067}
   - component: {fileID: 1538305066}
+  - component: {fileID: 1538305070}
   - component: {fileID: 1538305065}
   m_Layer: 0
   m_Name: Balcony
@@ -1342,7 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 3, z: 0}
 --- !u!65 &1538305066
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1417,6 +1632,43 @@ Transform:
   m_Father: {fileID: 1495529727}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1538305070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538305064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &1576368599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1658,6 +1910,7 @@ GameObject:
   - component: {fileID: 2060967711}
   - component: {fileID: 2060967710}
   - component: {fileID: 2060967709}
+  - component: {fileID: 2060967714}
   - component: {fileID: 2060967713}
   m_Layer: 0
   m_Name: Start
@@ -1752,4 +2005,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1.5, z: 0}
+  viewOffset: {x: 0, y: 3, z: 0}
+--- !u!114 &2060967714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060967708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 0
+  snappable: 0
+  isView: 1
+  viewOffset: {x: 0, y: 3, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1

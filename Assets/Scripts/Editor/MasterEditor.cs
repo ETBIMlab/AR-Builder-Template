@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System;
+using System.Reflection;
 
-[CustomEditor(typeof(MasterScript), true)]
+[CustomEditor(typeof(MasterScript), true), CanEditMultipleObjects]
 public class MasterEditor : Editor
 {
     GameObject scriptObject;
@@ -24,9 +26,14 @@ public class MasterEditor : Editor
     SerializedProperty textureChangable;
     SerializedProperty snappable;
     //SerializedProperty snappingCoords;
+    
     SerializedProperty isView;
-    SerializedProperty taggable;
+    SerializedProperty viewOffset;
 
+    SerializedProperty taggable;
+    SerializedProperty canToggleVisibility;
+
+    // Audio
     SerializedProperty hasAudio;
     SerializedProperty grabClip;
     SerializedProperty releaseClip;
@@ -46,7 +53,10 @@ public class MasterEditor : Editor
         deliveryTime = serializedObject.FindProperty("deliveryTime");
         installTime = serializedObject.FindProperty("installTime");
         sustainability = serializedObject.FindProperty("sustainability");
+
+        // Jacob: I believe this is specific to the playhouse... not sure we want it here
         fun = serializedObject.FindProperty("fun");
+
         orderable = serializedObject.FindProperty("orderable");
         movable = serializedObject.FindProperty("movable");
         drillable = serializedObject.FindProperty("drillable");
@@ -56,7 +66,11 @@ public class MasterEditor : Editor
         textureChangable = serializedObject.FindProperty("textureChangable");
         snappable = serializedObject.FindProperty("snappable");
         isView = serializedObject.FindProperty("isView");
+        viewOffset = serializedObject.FindProperty("viewOffset");
         taggable = serializedObject.FindProperty("taggable");
+        canToggleVisibility = serializedObject.FindProperty("canToggleVisibility");
+
+        // Audio
         hasAudio = serializedObject.FindProperty("hasAudio");
         orderClip = serializedObject.FindProperty("orderClip");
         grabClip = serializedObject.FindProperty("grabClip");
@@ -104,8 +118,15 @@ public class MasterEditor : Editor
         EditorGUILayout.PropertyField(paintable, new GUIContent("Paintable"));
         EditorGUILayout.PropertyField(textureChangable, new GUIContent("Texture Changable"));
         EditorGUILayout.PropertyField(snappable, new GUIContent("Snappable"));
+
         EditorGUILayout.PropertyField(isView, new GUIContent("Is View"));
+        if (isView.boolValue)
+        {
+            EditorGUILayout.PropertyField(viewOffset, new GUIContent("Offset"));
+        }
+
         EditorGUILayout.PropertyField(taggable, new GUIContent("Taggable"));
+        EditorGUILayout.PropertyField(canToggleVisibility, new GUIContent("Can Toggle Visibility"));
 
         EditorGUILayout.PropertyField(hasAudio, new GUIContent("Has Audio"));
         if (hasAudio.boolValue)
@@ -200,13 +221,24 @@ public class MasterEditor : Editor
             
         }
 
+        // Views
         if (isView.boolValue)
         {
+            ViewTarget viewComponent = scriptObject.GetComponent<ViewTarget>();
+            if (viewComponent == null)
+            {
+                viewComponent = scriptObject.AddComponent<ViewTarget>();
+                viewComponent.viewOffset = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                viewComponent.viewOffset = viewOffset.vector3Value;
+            }
 
         }
         else
         {
-            
+            DestroyImmediate(scriptObject.GetComponent<ViewTarget>());
         }
 
         if (taggable.boolValue)
@@ -216,6 +248,15 @@ public class MasterEditor : Editor
         else
         {
             
+        }
+
+        if (canToggleVisibility.boolValue)
+        {
+            if (scriptObject.GetComponent<CanToggleVisibility>() == null)
+                scriptObject.AddComponent<CanToggleVisibility>();
+        } else
+        {
+            DestroyImmediate(scriptObject.GetComponent<CanToggleVisibility>());
         }
 
         ApplyAudio();
@@ -257,6 +298,35 @@ public class MasterEditor : Editor
             DestroyImmediate(scriptObject.GetComponent<AudioScript>());
         }
     }
+
+    #region Attempts to make ApplyBehaviors() more maintainable
+    /*
+    private bool ApplyBehavior(MasterProperty prop)
+    {
+        bool enabled = prop.property.boolValue;
+        Type propertyType = typeof(prop.type);
+
+        if (enabled)
+        {
+            Component component = scriptObject.GetComponent<propertyType>();
+        }
+    }
+
+    public class MasterProperty
+    {
+        public SerializedProperty property;
+        public Type type;
+        public Component component;
+
+        public MasterProperty(SerializedProperty sp, Type t, Component c)
+        {
+            property = sp;
+            type = t;
+            component = c;
+        }
+    }
+    */
+    #endregion
 
     #region old code, not used
     //private void UpdateEditor()

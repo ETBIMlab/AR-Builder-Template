@@ -22,7 +22,9 @@ public class MasterScript : MonoBehaviour
     public bool snappable;
     //public List<Vector3> snappingCoords;
     public bool isView;
+    public Vector3 viewOffset;
     public bool taggable;
+    public bool canToggleVisibility;
 
     public bool hasAudio;
     public AudioClip orderClip;
