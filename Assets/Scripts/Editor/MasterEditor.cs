@@ -33,6 +33,19 @@ public class MasterEditor : Editor
     SerializedProperty taggable;
     SerializedProperty canToggleVisibility;
 
+    SerializedProperty isPaintBucket;
+    SerializedProperty Painter;
+    SerializedProperty material0;
+    SerializedProperty material1;
+    SerializedProperty material2;
+    SerializedProperty material3;
+    SerializedProperty material4;
+    SerializedProperty material5;
+    SerializedProperty material6;
+    SerializedProperty material7;
+    SerializedProperty material8;
+    SerializedProperty material9;
+
     // Audio
     SerializedProperty hasAudio;
     SerializedProperty grabClip;
@@ -41,6 +54,7 @@ public class MasterEditor : Editor
     SerializedProperty clickClip;
     SerializedProperty orderClip;
     SerializedProperty volume;
+    
 
     private void OnEnable()
     {
@@ -64,6 +78,16 @@ public class MasterEditor : Editor
         returnable = serializedObject.FindProperty("returnable");
         paintable = serializedObject.FindProperty("paintable");
         textureChangable = serializedObject.FindProperty("textureChangable");
+        material0 = serializedObject.FindProperty("material0");
+        material1 = serializedObject.FindProperty("material1");
+        material2 = serializedObject.FindProperty("material2");
+        material3 = serializedObject.FindProperty("material3");
+        material4 = serializedObject.FindProperty("material4");
+        material5 = serializedObject.FindProperty("material5");
+        material6 = serializedObject.FindProperty("material6");
+        material7 = serializedObject.FindProperty("material7");
+        material8 = serializedObject.FindProperty("material8");
+        material9 = serializedObject.FindProperty("material9");
         snappable = serializedObject.FindProperty("snappable");
         isView = serializedObject.FindProperty("isView");
         viewOffset = serializedObject.FindProperty("viewOffset");
@@ -78,6 +102,8 @@ public class MasterEditor : Editor
         dragClip = serializedObject.FindProperty("dragClip");
         clickClip = serializedObject.FindProperty("clickClip");
         volume = serializedObject.FindProperty("volume");
+        Painter = serializedObject.FindProperty("painter");
+        isPaintBucket = serializedObject.FindProperty("isPaintBucket");
 
         // initialize default values
         orderClip.objectReferenceValue = Resources.Load("Sounds/cashRegister") as AudioClip;
@@ -113,10 +139,60 @@ public class MasterEditor : Editor
         }
 
         EditorGUILayout.PropertyField(movable, new GUIContent("Movable"));
-        EditorGUILayout.PropertyField(drillable, new GUIContent("Drillable"));
+        GameObject lockingPoint = GameObject.Find("Locking Points");
+        if (lockingPoint != null)
+        {
+            EditorGUILayout.PropertyField(drillable, new GUIContent("Drillable"));
+        }
+
         EditorGUILayout.PropertyField(returnable, new GUIContent("Returnable"));
         EditorGUILayout.PropertyField(paintable, new GUIContent("Paintable"));
         EditorGUILayout.PropertyField(textureChangable, new GUIContent("Texture Changable"));
+        if(textureChangable.boolValue)
+        {
+            int materials_length = scriptObject.GetComponent<MeshRenderer>().sharedMaterials.Length;
+            // for each of the materials that the object can hold, add a field for the user to select it. Has a limit of 10 materials. 
+            EditorGUILayout.PropertyField(material0, new GUIContent("Material0"));
+            if (materials_length > 1)
+            {
+                EditorGUILayout.PropertyField(material1, new GUIContent("Material1"));
+                if (materials_length > 2)
+                {
+                    EditorGUILayout.PropertyField(material2, new GUIContent("Material2"));
+                    if (materials_length > 3)
+                    {
+                        EditorGUILayout.PropertyField(material3, new GUIContent("Material3"));
+                        if (materials_length > 4)
+                        {
+                            EditorGUILayout.PropertyField(material4, new GUIContent("Material4"));
+                            if (materials_length > 5)
+                            {
+                                EditorGUILayout.PropertyField(material5, new GUIContent("Material5"));
+                                if (materials_length > 6)
+                                {
+                                    EditorGUILayout.PropertyField(material6, new GUIContent("Material6"));
+                                    if (materials_length > 7)
+                                    {
+                                        EditorGUILayout.PropertyField(material7, new GUIContent("Material7"));
+                                        if (materials_length > 8)
+                                        {
+                                            EditorGUILayout.PropertyField(material8, new GUIContent("Material8"));
+                                            if (materials_length > 9)
+                                            {
+                                                EditorGUILayout.PropertyField(material9, new GUIContent("Material9"));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+
         EditorGUILayout.PropertyField(snappable, new GUIContent("Snappable"));
 
         EditorGUILayout.PropertyField(isView, new GUIContent("Is View"));
@@ -127,6 +203,9 @@ public class MasterEditor : Editor
 
         EditorGUILayout.PropertyField(taggable, new GUIContent("Taggable"));
         EditorGUILayout.PropertyField(canToggleVisibility, new GUIContent("Can Toggle Visibility"));
+        EditorGUILayout.PropertyField(isPaintBucket, new GUIContent("Is Paint Bucket"));
+        EditorGUILayout.PropertyField(Painter, new GUIContent("Painter"));
+        
 
         EditorGUILayout.PropertyField(hasAudio, new GUIContent("Has Audio"));
         if (hasAudio.boolValue)
@@ -165,10 +244,29 @@ public class MasterEditor : Editor
 
         if (drillable.boolValue)
         {
+            GameObject lockingPoint = GameObject.Find("Locking Points");
+
+            if (scriptObject.GetComponent<Lockable>() == null)
+            {
+                if (lockingPoint != null)
+                {
+                    scriptObject.AddComponent<Lockable>();
+                }
+                else 
+                {
+                    DestroyImmediate(scriptObject.GetComponent<Lockable>());
+
+                }
+            }
+            else if (lockingPoint == null)
+            {
+                DestroyImmediate(scriptObject.GetComponent<Lockable>());
+            }
 
         }
         else
         {
+            DestroyImmediate(scriptObject.GetComponent<Lockable>());
             DestroyImmediate(scriptObject.GetComponent<Paintable>());
         }
 
@@ -190,7 +288,6 @@ public class MasterEditor : Editor
             DestroyImmediate(scriptObject.GetComponent<Paintable>());
         }
 
-
         if (paintable.boolValue)
         {
             if (scriptObject.GetComponent<Paintable>() == null)
@@ -198,7 +295,7 @@ public class MasterEditor : Editor
                 Paintable paintcomponent = scriptObject.AddComponent<Paintable>();
             }
         }
-        else 
+        else
         {
             DestroyImmediate(scriptObject.GetComponent<Paintable>());
         }
@@ -206,6 +303,30 @@ public class MasterEditor : Editor
         if (textureChangable.boolValue)
         {
 
+            MeshRenderer rend = scriptObject.GetComponent<MeshRenderer>();
+            Material[] mats = rend.sharedMaterials;
+            List<Material> newMats = new List<Material>();
+
+            newMats.Add(material0.objectReferenceValue as Material);
+            newMats.Add(material1.objectReferenceValue as Material);
+            newMats.Add(material2.objectReferenceValue as Material);
+            newMats.Add(material3.objectReferenceValue as Material);
+            newMats.Add(material4.objectReferenceValue as Material);
+            newMats.Add(material5.objectReferenceValue as Material);
+            newMats.Add(material6.objectReferenceValue as Material);
+            newMats.Add(material7.objectReferenceValue as Material);
+            newMats.Add(material8.objectReferenceValue as Material);
+            newMats.Add(material9.objectReferenceValue as Material);
+
+            // change material in mesh renderer to match texture changeable fields
+            for (int i = 0; i < mats.Length; i++)
+            {
+                if (mats[i] != newMats[i])
+                {
+                    mats[i] = newMats[i];
+                    rend.materials = mats;
+                }
+            }
         }
         else
         {
@@ -218,7 +339,33 @@ public class MasterEditor : Editor
         }
         else
         {
-            
+
+        }
+
+        if (isPaintBucket.boolValue)
+        {
+            if (scriptObject.GetComponent<isPaintBucket>() == null)
+            {
+                scriptObject.AddComponent<isPaintBucket>();
+            }
+
+        }
+        else
+        {
+
+        }
+
+        if (Painter.boolValue)
+        {
+            if (scriptObject.GetComponent<Painter>() == null)
+            {
+                scriptObject.AddComponent<Painter>();
+            }
+
+        }
+        else
+        {
+
         }
 
         // Views
@@ -247,7 +394,7 @@ public class MasterEditor : Editor
         }
         else
         {
-            
+
         }
 
         if (canToggleVisibility.boolValue)
@@ -257,6 +404,7 @@ public class MasterEditor : Editor
         } else
         {
             DestroyImmediate(scriptObject.GetComponent<CanToggleVisibility>());
+
         }
 
         ApplyAudio();
@@ -298,6 +446,7 @@ public class MasterEditor : Editor
             DestroyImmediate(scriptObject.GetComponent<AudioScript>());
         }
     }
+
 
     #region Attempts to make ApplyBehaviors() more maintainable
     /*

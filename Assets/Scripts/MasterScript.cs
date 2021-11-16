@@ -25,6 +25,18 @@ public class MasterScript : MonoBehaviour
     public Vector3 viewOffset;
     public bool taggable;
     public bool canToggleVisibility;
+    public bool isPaintBucket;
+    public bool painter;
+    public Material material0;
+    public Material material1;
+    public Material material2;
+    public Material material3;
+    public Material material4;
+    public Material material5;
+    public Material material6;
+    public Material material7;
+    public Material material8;
+    public Material material9;
 
     public bool hasAudio;
     public AudioClip orderClip;
