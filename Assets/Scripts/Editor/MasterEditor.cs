@@ -111,6 +111,7 @@ public class MasterEditor : Editor
         releaseClip.objectReferenceValue = Resources.Load("Sounds/sound_targetSelected_Correct") as AudioClip;
         dragClip.objectReferenceValue = Resources.Load("Sounds/MRTK_Slate_Release") as AudioClip;
         clickClip.objectReferenceValue = Resources.Load("Sounds/sound_TapDown") as AudioClip;
+        
     }
     #endregion
 
@@ -222,15 +223,72 @@ public class MasterEditor : Editor
         }
     }
 
+
     public void ApplyBehaviors()
     {
         if (orderable.boolValue)
         {
+            if (GUILayout.Button("Add Orderable Object"))
+            {
+                
+                ObjectOrderer objectOrdererScript = Camera.main.GetComponent<ObjectOrderer>();
+                // in order to insert the new object, increase the orderable object array's size by 1.
+                Array.Resize(ref objectOrdererScript.orderableObjs, objectOrdererScript.orderableObjs.Length + 1);
+
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].name = name.stringValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].price = price.doubleValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].sustainability = sustainability.doubleValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].deliveryTime = deliveryTime.intValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].instalTime = installTime.intValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].fun = fun.intValue;
+                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].obj = scriptObject;
+
+                EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue +" has been added to the orderable list!", "Okay");
+            }
+
+            if (GUILayout.Button("Remove Orderable Object"))
+            {
+
+                //DestroyImmediate(scriptObject.GetComponent<ObjectOrderer>());
+                ObjectOrderer objectOrdererScript = Camera.main.GetComponent<ObjectOrderer>();
+                int result = Array.FindIndex(objectOrdererScript.orderableObjs, element => element.name == name.stringValue);
+
+                // creating a temp array which size is less than the original orderable array by 1
+                ObjectOrderer.OrderableObj[] temp = new ObjectOrderer.OrderableObj[objectOrdererScript.orderableObjs.Length - 1];
+
+                // if the target object is the last element in the array
+                if (result == objectOrdererScript.orderableObjs.Length - 1) 
+                {
+                    for (int i = 0; i <temp.Length ; i++)
+                    {
+                        temp[i] = objectOrdererScript.orderableObjs[i];
+                    }
+                    objectOrdererScript.orderableObjs = temp;
+
+                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
+                }
+                // if target element is in the middle of the array
+                else
+                {
+                    for (int i = 0; i < result; i++) 
+                    {
+                        temp[i] = objectOrdererScript.orderableObjs[i];
+                    }
+                    for (int i = 0; i < (temp.Length - result); i++)
+                    {
+                        temp[result + i] = objectOrdererScript.orderableObjs[result + i + 1];
+                    }
+                    objectOrdererScript.orderableObjs = temp;
+                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
+                }   
+            }
+
 
         }
         else
         {
-            DestroyImmediate(scriptObject.GetComponent<Paintable>());
+            
+            
         }
 
         if (movable.boolValue)
