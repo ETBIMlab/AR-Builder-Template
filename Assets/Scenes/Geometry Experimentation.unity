@@ -2175,6 +2175,7 @@ GameObject:
   - component: {fileID: 1446753410}
   - component: {fileID: 1446753409}
   - component: {fileID: 1446753408}
+  - component: {fileID: 1446753412}
   - component: {fileID: 1446753407}
   m_Layer: 0
   m_Name: Cube
@@ -2192,41 +2193,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1446753406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Script: {fileID: 11500000, guid: 99d891b4f93addc429b636b6bc987653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  price: 0
-  deliveryTime: 0
-  installTime: 0
-  sustainability: 0
-  fun: 0
-  orderable: 0
-  movable: 0
-  drillable: 0
-  disposable: 0
-  returnable: 0
-  paintable: 0
-  textureChangable: 0
-  snappable: 0
-  isView: 0
-  viewOffset: {x: 0, y: 0, z: 0}
-  taggable: 0
-  canToggleVisibility: 0
-  isPaintBucket: 0
-  painter: 0
-  material1: {fileID: 0}
-  material2: {fileID: 0}
-  material3: {fileID: 0}
-  material4: {fileID: 0}
-  material5: {fileID: 0}
-  hasAudio: 0
-  orderClip: {fileID: 0}
-  grabClip: {fileID: 0}
-  releaseClip: {fileID: 0}
-  dragClip: {fileID: 0}
-  clickClip: {fileID: 0}
-  volume: 1
 --- !u!65 &1446753408
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2258,7 +2227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 75bca0fdaa46048438e7072770e7a176, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2295,12 +2264,60 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446753406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 16.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446753412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446753406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503697b45a55ddd4f9136f2052353676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  price: 0
+  deliveryTime: 0
+  installTime: 0
+  sustainability: 0
+  fun: 0
+  orderable: 0
+  movable: 0
+  drillable: 0
+  disposable: 0
+  returnable: 0
+  paintable: 0
+  textureChangable: 1
+  snappable: 0
+  isView: 0
+  viewOffset: {x: 0, y: 0, z: 0}
+  taggable: 0
+  canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 2100000, guid: 442ee39d2af9d42498e1514883ea9698, type: 2}
+  material2: {fileID: -7678201370362301912, guid: b526ca0e66b0ca5448d8b189d9b8aedb,
+    type: 3}
+  material3: {fileID: -208447294137613807, guid: b526ca0e66b0ca5448d8b189d9b8aedb,
+    type: 3}
+  material4: {fileID: -6562230368438142103, guid: 1b34d0b7d2d0dbf48b141b5bf2925fe7,
+    type: 3}
+  material5: {fileID: 2574259555166332100, guid: b526ca0e66b0ca5448d8b189d9b8aedb,
+    type: 3}
+  hasAudio: 0
+  orderClip: {fileID: 0}
+  grabClip: {fileID: 0}
+  releaseClip: {fileID: 0}
+  dragClip: {fileID: 0}
+  clickClip: {fileID: 0}
+  volume: 1
 --- !u!1 &1594049899
 GameObject:
   m_ObjectHideFlags: 0

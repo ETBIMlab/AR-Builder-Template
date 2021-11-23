@@ -143,11 +143,11 @@ public class MasterEditor : Editor
         EditorGUILayout.PropertyField(textureChangable, new GUIContent("Texture Changable"));
         if(textureChangable.boolValue)
         {
-            EditorGUILayout.PropertyField(material1, new GUIContent("Changable Material 1"));
-            EditorGUILayout.PropertyField(material2, new GUIContent("Changable Material 2"));
-            EditorGUILayout.PropertyField(material3, new GUIContent("Changable Material 3"));
-            EditorGUILayout.PropertyField(material4, new GUIContent("Changable Material 4"));
-            EditorGUILayout.PropertyField(material5, new GUIContent("Changable Material 5"));
+            EditorGUILayout.PropertyField(material1, new GUIContent("Material 1"));
+            EditorGUILayout.PropertyField(material2, new GUIContent("Material 2"));
+            EditorGUILayout.PropertyField(material3, new GUIContent("Material 3"));
+            EditorGUILayout.PropertyField(material4, new GUIContent("Material 4"));
+            EditorGUILayout.PropertyField(material5, new GUIContent("Material 5"));
         }
 
         EditorGUILayout.PropertyField(snappable, new GUIContent("Snappable"));
@@ -316,22 +316,16 @@ public class MasterEditor : Editor
         if (textureChangable.boolValue)
         {
 
-            MeshRenderer rend = scriptObject.GetComponent<MeshRenderer>();
-            Material[] mats = rend.sharedMaterials;
-            List<Material> newMats = new List<Material>();
+            if (scriptObject.GetComponent<TextureChanger>() == null)
+            {
+                scriptObject.AddComponent<TextureChanger>();
+            }
 
-            newMats.Add(material1.objectReferenceValue as Material);
-            newMats.Add(material2.objectReferenceValue as Material);
-            newMats.Add(material3.objectReferenceValue as Material);
-            newMats.Add(material4.objectReferenceValue as Material);
-            newMats.Add(material5.objectReferenceValue as Material);
 
-            // TODO: voice commands enabled to change the texture to any of the 5 materials 
-           
         }
         else
         {
-
+            DestroyImmediate(scriptObject.GetComponent<TextureChanger>());
         }
 
         if (snappable.boolValue)
