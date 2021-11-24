@@ -24,6 +24,7 @@ public class ObjectOrderer : MonoBehaviour
 
     }
     public GameObject Floor;
+    public GameObject SpawnPointObject;
     public Material RubberTexture;
     public Material SandTexture;
     public Material GrassTexture;
@@ -118,6 +119,7 @@ public class ObjectOrderer : MonoBehaviour
         temp = temp.Substring(0, temp.Length - 1);
         for (int i = 0; i < orderableObjs.Length; i++)
         {
+            
             if (orderableObjs[i].name.Equals(args.text.Substring(6))) //moving over the word, notifying, updating the laptop interface, adding it to the scene, and exporting the data
             {
                 Debug.Log(orderableObjs[i].name + " ordered");
@@ -134,6 +136,7 @@ public class ObjectOrderer : MonoBehaviour
                 h = h.Substring(0, h.IndexOf(" "));
                 Debug.Log(h);
                 int hold = numlist.IndexOf(h);
+                Debug.Log("Hold is: " + hold);
                 if (hold != -1) //ordered a custom amount of objects
                 {
                     li.additem(orderableObjs[i].price, orderableObjs[i].deliveryTime, orderableObjs[i].name, hold, orderableObjs[i].instalTime);
@@ -179,7 +182,8 @@ public class ObjectOrderer : MonoBehaviour
         //the following line spawns the object in front of the user
 
         //get position of the ordering truck
-        var orderPos = GameObject.Find("IndustrialSmallTruck").transform.position;
+        //var orderPos = GameObject.Find("IndustrialSmallTruck").transform.position;
+        var orderPos = SpawnPointObject.transform.position;
         Debug.Log("truck is at " + orderPos);
         //add surface changer if else here
         if (newObj.name == "Rubber Surface")
@@ -222,7 +226,8 @@ public class ObjectOrderer : MonoBehaviour
         }
         else
         {
-            Instantiate(newObj, new Vector3(orderPos.x - 0.1f, orderPos.y - .6f, orderPos.z - 3.6f), Quaternion.identity, GameObject.Find("EnvironmentContainer").transform);
+            //Instantiate(newObj, new Vector3(orderPos.x - 0.1f, orderPos.y - .6f, orderPos.z - 3.6f), Quaternion.identity, GameObject.Find("EnvironmentContainer").transform);
+            Instantiate(newObj, new Vector3(orderPos.x, orderPos.y + 0.8f, orderPos.z), Quaternion.identity, GameObject.Find("EnvironmentContainer").transform);
 
         }
     }

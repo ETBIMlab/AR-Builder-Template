@@ -3,6 +3,8 @@ using UnityEditor;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.Input;
 
 [CustomEditor(typeof(MasterScript), true), CanEditMultipleObjects]
 public class MasterEditor : Editor
@@ -123,7 +125,7 @@ public class MasterEditor : Editor
 
     public void DisplayFields()
     {
-        EditorGUILayout.PropertyField(name, new GUIContent("Name"));
+        var nameGUI = EditorGUILayout.PropertyField(name, new GUIContent("Name"));
         EditorGUILayout.PropertyField(sustainability, new GUIContent("Sustainability"));
         EditorGUILayout.PropertyField(fun, new GUIContent("Fun"));
 
@@ -132,6 +134,7 @@ public class MasterEditor : Editor
         {
             EditorGUILayout.PropertyField(price, new GUIContent("Price"));
             EditorGUILayout.PropertyField(deliveryTime, new GUIContent("Delivery Time"));
+
             EditorGUILayout.PropertyField(installTime, new GUIContent("Install Time"));
         }
 
@@ -188,27 +191,41 @@ public class MasterEditor : Editor
             {
                 
                 ObjectOrderer objectOrdererScript = Camera.main.GetComponent<ObjectOrderer>();
-                // in order to insert the new object, increase the orderable object array's size by 1.
-                Array.Resize(ref objectOrdererScript.orderableObjs, objectOrdererScript.orderableObjs.Length + 1);
+                int nameCheck = Array.FindIndex(objectOrdererScript.orderableObjs, element => element.name == name.stringValue);
+                if (nameCheck == -1 && name.stringValue != "")
+                {
+                    // in order to insert the new object, increase the orderable object array's size by 1.
+                    Array.Resize(ref objectOrdererScript.orderableObjs, objectOrdererScript.orderableObjs.Length + 1);
+                
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].name = name.stringValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].price = price.doubleValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].sustainability = sustainability.doubleValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].deliveryTime = deliveryTime.intValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].instalTime = installTime.intValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].fun = fun.intValue;
+                    objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].obj = scriptObject;
 
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].name = name.stringValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].price = price.doubleValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].sustainability = sustainability.doubleValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].deliveryTime = deliveryTime.intValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].instalTime = installTime.intValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].fun = fun.intValue;
-                objectOrdererScript.orderableObjs[objectOrdererScript.orderableObjs.Length - 1].obj = scriptObject;
-
-                EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue +" has been added to the orderable list!", "Okay");
+                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue +" has been added to the orderable list!", "Okay");
+                }
+                else if (name.stringValue == "")
+                {
+                    EditorUtility.DisplayDialog("Orderable", "The Object name cannot be empty!\nPlease enter the name of the object!", "Okay");
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue +" has alreay exist in the order list!\nPlease Change the name of the object!", "Okay");
+                }
+                
             }
 
-            if (GUILayout.Button("Remove Orderable Object"))
+
+        }
+        else
+        {
+            ObjectOrderer objectOrdererScript = Camera.main.GetComponent<ObjectOrderer>();
+            int result = Array.FindIndex(objectOrdererScript.orderableObjs, element => element.name == name.stringValue);
+            if (result != -1 && name.stringValue != "")
             {
-
-                //DestroyImmediate(scriptObject.GetComponent<ObjectOrderer>());
-                ObjectOrderer objectOrdererScript = Camera.main.GetComponent<ObjectOrderer>();
-                int result = Array.FindIndex(objectOrdererScript.orderableObjs, element => element.name == name.stringValue);
-
                 // creating a temp array which size is less than the original orderable array by 1
                 ObjectOrderer.OrderableObj[] temp = new ObjectOrderer.OrderableObj[objectOrdererScript.orderableObjs.Length - 1];
 
@@ -221,7 +238,7 @@ public class MasterEditor : Editor
                     }
                     objectOrdererScript.orderableObjs = temp;
 
-                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
+                    //EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
                 }
                 // if target element is in the middle of the array
                 else
@@ -235,25 +252,37 @@ public class MasterEditor : Editor
                         temp[result + i] = objectOrdererScript.orderableObjs[result + i + 1];
                     }
                     objectOrdererScript.orderableObjs = temp;
-                    EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
-                }   
+                    //EditorUtility.DisplayDialog("Orderable", "The Object " + name.stringValue + " has been removed from the orderable list!", "Okay");
+                }
             }
-
-
-        }
-        else
-        {
             
             
         }
 
         if (movable.boolValue)
         {
+            if (scriptObject.GetComponent<ObjectSnapping>() == null) 
+            {
+                ObjectSnapping objectSnappingCompoent = scriptObject.AddComponent<ObjectSnapping>();
+                objectSnappingCompoent.snappingRadius = 0.1F;
+            }
 
+            if (scriptObject.GetComponent<NearInteractionGrabbable>() == null) 
+            {
+                NearInteractionGrabbable nearInteractionGrabbableCompoent = scriptObject.AddComponent<NearInteractionGrabbable>();
+            }
+
+            if (scriptObject.GetComponent<ManipulationHandler>() == null)
+            {
+                ManipulationHandler manipulationHandlerComponent = scriptObject.AddComponent<ManipulationHandler>();
+            }
         }
         else
         {
-            DestroyImmediate(scriptObject.GetComponent<Paintable>());
+            DestroyImmediate(scriptObject.GetComponent<ObjectSnapping>());
+            DestroyImmediate(scriptObject.GetComponent<NearInteractionGrabbable>());
+            DestroyImmediate(scriptObject.GetComponent<ManipulationHandler>());
+            
         }
 
         if (drillable.boolValue)
