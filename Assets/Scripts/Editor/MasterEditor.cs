@@ -11,6 +11,9 @@ public class MasterEditor : Editor
 {
     GameObject scriptObject;
 
+    static string tagUntagged = "Untagged";
+    static string tagItem = "item";
+
     #region getting info from the masterscript and initializing serializable properties
     SerializedProperty name;
     SerializedProperty price;
@@ -140,6 +143,7 @@ public class MasterEditor : Editor
 
         EditorGUILayout.PropertyField(movable, new GUIContent("Movable"));
         EditorGUILayout.PropertyField(drillable, new GUIContent("Drillable"));
+        EditorGUILayout.PropertyField(disposable, new GUIContent("Disposable"));
         EditorGUILayout.PropertyField(returnable, new GUIContent("Returnable"));
         EditorGUILayout.PropertyField(paintable, new GUIContent("Paintable"));
 
@@ -281,8 +285,7 @@ public class MasterEditor : Editor
         {
             DestroyImmediate(scriptObject.GetComponent<ObjectSnapping>());
             DestroyImmediate(scriptObject.GetComponent<NearInteractionGrabbable>());
-            DestroyImmediate(scriptObject.GetComponent<ManipulationHandler>());
-            
+            DestroyImmediate(scriptObject.GetComponent<ManipulationHandler>());            
         }
 
         if (drillable.boolValue)
@@ -314,11 +317,12 @@ public class MasterEditor : Editor
 
         if (disposable.boolValue)
         {
-
+            scriptObject.tag = tagItem;
         }
         else
         {
-            DestroyImmediate(scriptObject.GetComponent<Paintable>());
+            scriptObject.tag = tagUntagged;
+
         }
 
         if (returnable.boolValue)
@@ -327,7 +331,7 @@ public class MasterEditor : Editor
         }
         else
         {
-            DestroyImmediate(scriptObject.GetComponent<Paintable>());
+
         }
 
         if (paintable.boolValue)
@@ -501,133 +505,4 @@ public class MasterEditor : Editor
     */
     #endregion
 
-    #region old code, not used
-    //private void UpdateEditor()
-    //{
-    //    if (objectProperties.snappingCoords == null)
-    //    {
-    //        objectProperties.snappingCoords = new List<Vector3>();
-    //    }
-
-    //    base.DrawDefaultInspector();
-
-    //    // display the different options to choose from
-    //    DisplayOrderable();
-    //    DisplayBool(ref objectProperties.movable, "Movable");
-    //    DisplayBool(ref objectProperties.drillable, "Drillable");
-    //    DisplayBool(ref objectProperties.disposable, "Disposable");
-    //    DisplayBool(ref objectProperties.returnable, "Returnable");
-    //    DisplayBool(ref objectProperties.paintable, "Paintable");
-    //    DisplayBool(ref objectProperties.textureChangable, "Texture Changable");
-    //    DisplaySnappableToOtherObjects();
-
-    //    ApplyProperties();
-
-    //    // update the object properties based on what the user entered
-    //    ((MasterScript)target).information = objectProperties;
-
-    //    Debug.Log(objectProperties.orderable.ToString());
-    //    Debug.Log(((MasterScript)target).information.orderable.ToString());
-    //}
-
-    //private void ApplyProperties()
-    //{
-    //    //Debug.Log("in ApplyProperties " + ((MasterScript) target).ToString());
-    //    Object prefabObj = PrefabUtility.GetCorrespondingObjectFromSource((MasterScript)target);
-    //    if ( prefabObj != null )
-    //    {
-    //        Debug.Log("not null! " + prefabObj.ToString());
-    //    }
-    //    //string prefabPath = AssetDatabase.GetAssetPath(prefabObj);
-    //    //Debug.Log(prefabPath);
-    //    //PrefabUtility.ApplyAddedComponent(typeof(Paintable), prefabPath, InteractionMode.UserAction);
-    //}
-
-    //private void DisplayOrderable()
-    //{
-    //    DisplayBool(ref objectProperties.orderable, "Orderable");
-
-    //    float defaultLabelWidth = 150f;
-
-    //    if (objectProperties.orderable)
-    //    {
-    //        // name
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tName", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.name = GUILayout.TextField(objectProperties.orderingInfo.name);
-    //        GUILayout.EndHorizontal();
-
-    //        // price
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tPrice", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.price = EditorGUILayout.DoubleField(objectProperties.orderingInfo.price);
-    //        GUILayout.EndHorizontal();
-
-    //        // delivery time
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tDelivery Time", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.deliveryTime = EditorGUILayout.IntField(objectProperties.orderingInfo.deliveryTime);
-    //        GUILayout.EndHorizontal();
-
-    //        // install time
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tInstall Time", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.instalTime = EditorGUILayout.IntField(objectProperties.orderingInfo.instalTime);
-    //        GUILayout.EndHorizontal();
-
-    //        // sustainability
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tSustainability", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.sustainability = EditorGUILayout.DoubleField(objectProperties.orderingInfo.sustainability);
-    //        GUILayout.EndHorizontal();
-
-    //        // fun
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tFun", GUILayout.Width(defaultLabelWidth));
-    //        objectProperties.orderingInfo.fun = EditorGUILayout.IntField(objectProperties.orderingInfo.fun);
-    //        GUILayout.EndHorizontal();
-
-    //        // obj - EditorGUILayout.ObjectField?
-    //    }
-    //}
-
-    //private void DisplayBool(ref bool property, string label)
-    //{
-    //    GUILayout.BeginHorizontal();
-    //    property = GUILayout.Toggle(property, label);
-    //    GUILayout.EndHorizontal();
-    //}
-
-    //private void DisplaySnappableToOtherObjects()
-    //{
-    //    DisplayBool(ref objectProperties.snappable, "Snappable");
-
-    //    if (objectProperties.snappable)
-    //    {
-    //        GUILayout.BeginHorizontal();
-    //        GUILayout.Label("\tSnapping Coordinates:", GUILayout.Width(250f));
-    //        if ( GUILayout.Button("Add New Coordinate") )
-    //        {
-    //            objectProperties.snappingCoords.Add(new Vector3(0f, 0f, 0f));
-    //        }
-    //        GUILayout.EndHorizontal();
-
-    //        for ( int i = 0; i < objectProperties.snappingCoords.Count; i++ )
-    //        {
-    //            GUILayout.BeginHorizontal();
-    //            string label = "\tCoordinate " + i.ToString();
-    //            objectProperties.snappingCoords[i] = EditorGUILayout.Vector3Field(label, objectProperties.snappingCoords[i]);
-    //            if ( GUILayout.Button("Remove", GUILayout.Width(75f)) )
-    //            {
-    //                objectProperties.snappingCoords.Remove(objectProperties.snappingCoords[i]);
-    //            }
-    //            GUILayout.EndHorizontal();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        objectProperties.snappingCoords.Clear();
-    //    }
-    //}
-    #endregion
 }
