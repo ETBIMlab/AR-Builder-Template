@@ -322,7 +322,6 @@ public class MasterEditor : Editor
         else
         {
             scriptObject.tag = tagUntagged;
-
         }
 
         if (returnable.boolValue)
@@ -418,11 +417,11 @@ public class MasterEditor : Editor
 
         if (taggable.boolValue)
         {
-
+            scriptObject.tag = tagItem;
         }
         else
         {
-
+            scriptObject.tag = tagUntagged;
         }
 
         if (canToggleVisibility.boolValue)
