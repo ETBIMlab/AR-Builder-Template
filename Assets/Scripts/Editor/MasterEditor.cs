@@ -284,8 +284,7 @@ public class MasterEditor : Editor
         else
         {
             DestroyImmediate(scriptObject.GetComponent<ObjectSnapping>());
-            DestroyImmediate(scriptObject.GetComponent<NearInteractionGrabbable>());
-            DestroyImmediate(scriptObject.GetComponent<ManipulationHandler>());            
+            DestroyImmediate(scriptObject.GetComponent<NearInteractionGrabbable>());          
         }
 
         if (drillable.boolValue)
@@ -308,6 +307,10 @@ public class MasterEditor : Editor
                 scriptObject.AddComponent<Lockable>();
             }
 
+            if(scriptObject.GetComponent<ManipulationHandler>() == null)
+            {
+                scriptObject.AddComponent<ManipulationHandler>();
+            }
         }
         else
         {
