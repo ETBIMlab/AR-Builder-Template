@@ -259,6 +259,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -512,6 +519,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -657,6 +671,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -715,6 +736,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 0, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -826,6 +854,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -1336,6 +1371,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 5, z: 0}
   taggable: 0
   canToggleVisibility: 1
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -1357,6 +1399,7 @@ GameObject:
   - component: {fileID: 1425361660}
   - component: {fileID: 1425361659}
   - component: {fileID: 1425361658}
+  - component: {fileID: 1425361661}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1486,6 +1529,27 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!114 &1425361661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425361654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaec75a6728f2764da5e9899e71adab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Floor: {fileID: 0}
+  SpawnPointObject: {fileID: 0}
+  RubberTexture: {fileID: 0}
+  SandTexture: {fileID: 0}
+  GrassTexture: {fileID: 0}
+  ConcreteTexture: {fileID: 0}
+  MulchTexture: {fileID: 0}
+  laptopinterface: {fileID: 0}
+  orderableObjs: []
 --- !u!1 &1495529726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,6 +1726,13 @@ MonoBehaviour:
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
   canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -1912,8 +1983,9 @@ GameObject:
   - component: {fileID: 2060967709}
   - component: {fileID: 2060967714}
   - component: {fileID: 2060967713}
+  - component: {fileID: 2060967715}
   m_Layer: 0
-  m_Name: Start
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2024,7 +2096,7 @@ MonoBehaviour:
   installTime: 0
   sustainability: 0
   fun: 0
-  orderable: 0
+  orderable: 1
   movable: 0
   drillable: 0
   disposable: 0
@@ -2035,7 +2107,14 @@ MonoBehaviour:
   isView: 1
   viewOffset: {x: 0, y: 3, z: 0}
   taggable: 0
-  canToggleVisibility: 0
+  canToggleVisibility: 1
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 0
   orderClip: {fileID: 0}
   grabClip: {fileID: 0}
@@ -2043,3 +2122,15 @@ MonoBehaviour:
   dragClip: {fileID: 0}
   clickClip: {fileID: 0}
   volume: 1
+--- !u!114 &2060967715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060967708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178b9aeba8f04c94f940a17dc894c37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

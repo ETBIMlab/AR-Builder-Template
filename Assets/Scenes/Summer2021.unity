@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63d7f1038a3da444b9f9c3194069b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: 0}
+  viewOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &65934927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shiftAmount: 1
-  environmentOffset: {x: 14.74961, y: -2.840995, z: -17.94446}
+  environmentOffset: {x: 14.74961, y: 0, z: -17.94446}
   spaceSetAudio: {fileID: 0}
 --- !u!82 &96329994
 AudioSource:
@@ -5848,6 +5848,16 @@ PrefabInstance:
       propertyPath: m_Height
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8125749757986664516, guid: 0cb3c7298b385e34c86a23886b8f45b7,
+        type: 3}
+      propertyPath: changeSpaceAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 570d5c84cf163914c8afdf35290ea64e, type: 3}
+    - target: {fileID: 8125749757986664516, guid: 0cb3c7298b385e34c86a23886b8f45b7,
+        type: 3}
+      propertyPath: changeLevelAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 170429180f309a940b54c1001e94e54c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cb3c7298b385e34c86a23886b8f45b7, type: 3}
 --- !u!1 &709473823 stripped
@@ -7325,7 +7335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949972376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.34, y: -3.53, z: -21.26}
+  m_LocalPosition: {x: 18.34, y: -4.5, z: -21.26}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 712496755}
@@ -8579,6 +8589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Floor: {fileID: 8321261906074040954}
+  SpawnPointObject: {fileID: 0}
   RubberTexture: {fileID: 2100000, guid: b9581edc5e9ec8c46b8b4979dbc3dbab, type: 2}
   SandTexture: {fileID: 2100000, guid: 00c819dc44a621b439fea44f0b1bfd17, type: 2}
   GrassTexture: {fileID: 2100000, guid: b01e02af67f6ef94e90a4a2527932d11, type: 2}
@@ -13848,7 +13859,16 @@ MonoBehaviour:
   textureChangable: 0
   snappable: 0
   isView: 0
+  viewOffset: {x: 0, y: 0, z: 0}
   taggable: 0
+  canToggleVisibility: 0
+  isPaintBucket: 0
+  painter: 0
+  material1: {fileID: 0}
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  material4: {fileID: 0}
+  material5: {fileID: 0}
   hasAudio: 1
   orderClip: {fileID: 8300000, guid: 6848840b06cce9b4bb4c66584d9f7982, type: 3}
   grabClip: {fileID: 8300000, guid: 465a6a24f76b20746817efe51906d98e, type: 3}
