@@ -31,9 +31,6 @@ public class MasterEditor : Editor
     SerializedProperty textureChangable;
     SerializedProperty snappable;
     //SerializedProperty snappingCoords;
-    
-    SerializedProperty isView;
-    SerializedProperty viewOffset;
 
     SerializedProperty taggable;
     SerializedProperty canToggleVisibility;
@@ -90,8 +87,6 @@ public class MasterEditor : Editor
         material5 = serializedObject.FindProperty("material5");
 
         snappable = serializedObject.FindProperty("snappable");
-        isView = serializedObject.FindProperty("isView");
-        viewOffset = serializedObject.FindProperty("viewOffset");
         taggable = serializedObject.FindProperty("taggable");
         canToggleVisibility = serializedObject.FindProperty("canToggleVisibility");
 
@@ -158,12 +153,6 @@ public class MasterEditor : Editor
         }
 
         EditorGUILayout.PropertyField(snappable, new GUIContent("Snappable"));
-
-        EditorGUILayout.PropertyField(isView, new GUIContent("Is View"));
-        if (isView.boolValue)
-        {
-            EditorGUILayout.PropertyField(viewOffset, new GUIContent("Offset"));
-        }
 
         EditorGUILayout.PropertyField(taggable, new GUIContent("Taggable"));
         EditorGUILayout.PropertyField(canToggleVisibility, new GUIContent("Can Toggle Visibility"));
@@ -396,26 +385,6 @@ public class MasterEditor : Editor
         else
         {
 
-        }
-
-        // Views
-        if (isView.boolValue)
-        {
-            ViewTarget viewComponent = scriptObject.GetComponent<ViewTarget>();
-            if (viewComponent == null)
-            {
-                viewComponent = scriptObject.AddComponent<ViewTarget>();
-                viewComponent.viewOffset = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                viewComponent.viewOffset = viewOffset.vector3Value;
-            }
-
-        }
-        else
-        {
-            DestroyImmediate(scriptObject.GetComponent<ViewTarget>());
         }
 
         if (taggable.boolValue)

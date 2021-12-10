@@ -6,6 +6,7 @@ using UnityEngine.Windows.Speech;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.UI;
+using TMPro;
 
 //This is the root script that defines behavior at the root level
 //It is to be used by a GameObject at the root of the contruction simulator
@@ -18,7 +19,10 @@ public class Root : MonoBehaviour
     private GameObject environmentSetter;
     private GameObject environmentContainer;
     public int shiftAmount;
-    public Vector3 environmentOffset;
+    
+    // Height Calibration
+    private float heightOffset;
+    private GameObject heightText;
 
     bool isShiftedUp;
     private bool floorVisible;
@@ -26,10 +30,6 @@ public class Root : MonoBehaviour
     int scaleModeState;
     int currentScale;
     List<scaleState> scaleLevels;
-
-    // Interacts with floating UI buttons. Will re-enable in later patch
-    // public GameObject scaleToggle;
-    // public GameObject levelToggle;
 
     // Audio
     private AudioSource audioSource;
@@ -62,6 +62,8 @@ public class Root : MonoBehaviour
         environmentSetter = GameObject.Find("EnvironmentSetter");
         setterAudio = environmentSetter.GetComponent<EnvironmentSetterAudio>();
 
+        initializeHeightCalibration();
+
         generateVoiceCommands();
 
         isShiftedUp = false; //player starts on the ground
@@ -89,39 +91,8 @@ public class Root : MonoBehaviour
 
         keywords.Add("Set Space", () => { setSpace(); audioSource.PlayOneShot(spaceSetAudio, 1F); });//set the space for the simulator
 
-        // keywords.Add("Shift Level", () => { this.toggleLevel(); setterAudio.shiftLevel(); });//toggle the current level
-        /*keywords.Add("Move down", () =>
-        {
-            this.toggleLevel(); setterAudio.shiftLevel();
-        });
-        keywords.Add("Move up", () =>
-        {
-            this.toggleLevel(); setterAudio.shiftLevel();
-        }); */
-        /*keywords.Add("Move up", () => { //move to the upper level if the player is on the ground floor
-            if(!isShiftedUp)//player is on the ground floor
-            {
-                this.shiftLevel();
-                audio.shiftLevel();
-            }
-        });
-        keywords.Add("Move down", () => { //move to the upper level if the player is on the ground floor
-            if (isShiftedUp)//player is on the upper floor
-            {
-                this.shiftLevel();
-                audio.shiftLevel();
-            }
-        });*/
-
-        // keywords.Add("Toggle Level", () => { this.toggleLevel();  });//toggle the  level up or down
-
-        keywords.Add("Toggle floor", () => { this.toggleFloor(); setterAudio.changeView(); });//toggle the  floor on or off
-
-
-        // keywords.Add("Shift scale", () => { this.toggleButton(); setterAudio.nextScale(); });//move through the scaling
         keywords.Add("Scale half", () => { scale(0); setterAudio.changeView(); });
         keywords.Add("Scale one", () => { scale(1); setterAudio.changeView(); });
-        // keywords.Add("Normal view", () => { this.toggleButton(); setterAudio.nextScale(); });//scale 2 is the aproximate size for the real play house
         keywords.Add("Scale two", () => { scale(2); setterAudio.changeView(); });
         keywords.Add("Scale three", () => { scale(3); setterAudio.changeView(); });
         keywords.Add("Scale four", () => { scale(4); setterAudio.changeView(); });
@@ -136,6 +107,8 @@ public class Root : MonoBehaviour
         keywords.Add("Scale one and a half", () => { this.scale(12); setterAudio.changeView(); });
         keywords.Add("Scale one and three quarters", () => { this.scale(13); setterAudio.changeView(); });
 
+        keywords.Add("Height adjust up", incrementHeight);
+        keywords.Add("Height adjust down", decrementHeight);
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -190,12 +163,7 @@ public class Root : MonoBehaviour
 
     public void setSpace()
     {
-        Vector3 newPosition = new Vector3();
-        newPosition.x = environmentSetter.transform.position.x + environmentOffset.x;
-        newPosition.y = environmentSetter.transform.position.y + environmentOffset.y;
-        newPosition.z = environmentSetter.transform.position.z + environmentOffset.z;
-
-        // environmentContainer.transform.position = newPosition;
+        changeView("Origin");
 
         this.setVisibility(true, environmentContainer);
 
@@ -209,17 +177,17 @@ public class Root : MonoBehaviour
         if (isShiftedUp)
         {
             Debug.Log("shifted up");
-            newPosition.x = environmentContainer.transform.position.x;//environmentSetter.transform.position.x + environmentOffset.x; // + environmentContainer.transform.position.x + (float)shiftAmount;
+            newPosition.x = environmentContainer.transform.position.x;//environmentSetter.transform.position.x + heightOffset.x; // + environmentContainer.transform.position.x + (float)shiftAmount;
             newPosition.y = environmentContainer.transform.position.y + (float)shiftAmount * scaleLevels[currentScale].shift;
-            newPosition.z = environmentContainer.transform.position.z;//environmentSetter.transform.position.z + environmentOffset.z;// + environmentContainer.transform.position.z + (float)shiftAmount;
+            newPosition.z = environmentContainer.transform.position.z;//environmentSetter.transform.position.z + heightOffset.z;// + environmentContainer.transform.position.z + (float)shiftAmount;
             isShiftedUp = false;
         }
         else
         {
             Debug.Log("shifted down");
-            newPosition.x = environmentContainer.transform.position.x;//environmentSetter.transform.position.x + environmentOffset.x; //+ environmentContainer.transform.position.x - (float)shiftAmount;
+            newPosition.x = environmentContainer.transform.position.x;//environmentSetter.transform.position.x + heightOffset.x; //+ environmentContainer.transform.position.x - (float)shiftAmount;
             newPosition.y = environmentContainer.transform.position.y - (float)shiftAmount * scaleLevels[currentScale].shift;
-            newPosition.z = environmentContainer.transform.position.z;//environmentSetter.transform.position.z + environmentOffset.z;// + environmentContainer.transform.position.z - (float)shiftAmount;
+            newPosition.z = environmentContainer.transform.position.z;//environmentSetter.transform.position.z + heightOffset.z;// + environmentContainer.transform.position.z - (float)shiftAmount;
             isShiftedUp = true;
         }
 
@@ -231,9 +199,9 @@ public class Root : MonoBehaviour
     {
         Vector3 newPosition = new Vector3();
 
-        //newPosition.x = environmentOffset.x * scaleLevels[scaleModeState].shift;
-        //newPosition.y = environmentOffset.y * scaleLevels[scaleModeState].shift;
-        //newPosition.z = environmentOffset.z * scaleLevels[scaleModeState].shift;
+        //newPosition.x = heightOffset.x * scaleLevels[scaleModeState].shift;
+        //newPosition.y = heightOffset.y * scaleLevels[scaleModeState].shift;
+        //newPosition.z = heightOffset.z * scaleLevels[scaleModeState].shift;
         //scale the level and move the level to the environmentSetter
         newPosition.x = environmentSetter.transform.position.x - playerPosition.x * scaleLevels[scaleModeState].shift;
         newPosition.y = environmentSetter.transform.position.y - playerPosition.y * scaleLevels[scaleModeState].shift;
@@ -255,7 +223,6 @@ public class Root : MonoBehaviour
         Vector3 playerPosition = player.transform.position;
         float currentScalar = scaleLevels[currentScale].shift;
         float newScalar = scaleLevels[scalar].shift;
-        Vector3 viewOffset = currentViewTarget.GetComponent<ViewTarget>().viewOffset;
 
         if (currentScalar == newScalar)
             return;
@@ -274,11 +241,6 @@ public class Root : MonoBehaviour
         // Snap player back to last view target
         changeView(currentViewTarget.name);
 
-        if (isShiftedUp)//player is currently on upper floor
-        {
-            isShiftedUp = false;//since scale returns to ground floor, reset the shifted state
-            this.shiftLevel();
-        }
     }
 
 
@@ -316,11 +278,10 @@ public class Root : MonoBehaviour
         }
 
         Vector3 targetPosition = targetObject.transform.position;
-        Vector3 targetOffset = targetObject.GetComponent<ViewTarget>().viewOffset;
 
-        newPosition.x += playerPosition.x - targetPosition.x - targetOffset.x * scaleLevels[currentScale].shift;
-        newPosition.y += playerPosition.y - targetPosition.y - targetOffset.y * scaleLevels[currentScale].shift;
-        newPosition.z += playerPosition.z - targetPosition.z - targetOffset.z * scaleLevels[currentScale].shift;
+        newPosition.x += playerPosition.x - targetPosition.x;
+        newPosition.y += playerPosition.y - targetPosition.y - heightOffset * scaleLevels[currentScale].shift;
+        newPosition.z += playerPosition.z - targetPosition.z;
 
         environmentContainer.transform.position = newPosition;
         currentViewTarget = targetObject;
@@ -333,7 +294,7 @@ public class Root : MonoBehaviour
         // Views
         ViewTarget[] tempViewTargets = Object.FindObjectsOfType<ViewTarget>();
         viewTargets = new GameObject[tempViewTargets.Length];
-        currentViewTarget = GameObject.Find("Start");
+        currentViewTarget = GameObject.Find("Origin");
 
         for (int i = 0; i < viewTargets.Length; i++)
         {
@@ -418,6 +379,41 @@ public class Root : MonoBehaviour
 
         setterAudio.shiftLevel();
     }
+
+    public void initializeHeightCalibration()
+    {
+        heightOffset = 2.0f;
+        heightText = GameObject.Find("HeightText");
+
+        GameObject upButton = GameObject.Find("UpButton");
+        upButton.GetComponent<Interactable>().OnClick.AddListener(() => incrementHeight());
+
+        GameObject downButton = GameObject.Find("DownButton");
+        downButton.GetComponent<Interactable>().OnClick.AddListener(() => decrementHeight());
+    }
+
+    private void adjustHeight(float increment)
+    {
+        // Update offset
+        heightOffset += increment;
+        heightText.GetComponent<TextMeshProUGUI>().text = string.Format("{0:0.0}", heightOffset);
+
+        // Instantly adjust position
+        Vector3 currentPosition = environmentContainer.transform.position;
+        currentPosition.y -= increment;
+        environmentContainer.transform.position = currentPosition;
+    }
+
+    private void incrementHeight()
+    {
+        adjustHeight(0.1f);
+    }
+
+    private void decrementHeight()
+    {
+        adjustHeight(-0.1f);
+    }
+
 }
 
 public class scaleState 
