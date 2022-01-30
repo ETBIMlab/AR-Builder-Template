@@ -163,8 +163,6 @@ public class Root : MonoBehaviour
 
     public void setSpace()
     {
-        changeView("Origin");
-
         this.setVisibility(true, environmentContainer);
 
         Debug.Log("SETTING ENV: " + environmentContainer.transform.position.ToString());
