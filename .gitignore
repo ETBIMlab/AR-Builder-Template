@@ -47,9 +47,3 @@ Assets/MixedRealityToolkit.Generated/CustomProfiles.meta
 Assets/MixedRealityToolkit.Generated/CustomProfiles.meta
 Assets/Scripts/ShiftScale.cs.meta
 Assets/Scripts/Editor.meta
-
-# =============== #
-# Build Artifacts #
-# =============== #
-
-[Dd]eployment*
